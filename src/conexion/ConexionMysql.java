@@ -12,8 +12,8 @@ public class ConexionMysql {
 	public ConexionMysql() throws SQLException {
 		String host = "localhost";
 	    String baseDatos = "deinsa";
-	    String usuario = "root";
-	    String password = "dm2";
+	    String usuario = "admin@localhost";
+	    String password = "password";
 	    String cadenaConexion = "jdbc:mysql://" + host + "/" + baseDatos+ "?serverTimezone=" + TimeZone.getDefault().getID();
 	    conn = DriverManager.getConnection(cadenaConexion, usuario, password);
 	    conn.setAutoCommit(true);
@@ -22,5 +22,7 @@ public class ConexionMysql {
         return conn;
     }
 
-	
+	public void CloseConexion() throws SQLException{
+    	this.conn.close();
+    }
 }

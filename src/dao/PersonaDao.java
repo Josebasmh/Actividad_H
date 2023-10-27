@@ -18,11 +18,11 @@ public class PersonaDao {
     	ObservableList<Persona> persona = FXCollections.observableArrayList();
         try {
             conexion = new ConexionMysql();        	
-        	String consulta = "select * from aviones;";
+        	String consulta = "select * from personas;";
         	PreparedStatement pstmt = conexion.getConexion().prepareStatement(consulta);      
         	ResultSet rs = pstmt.executeQuery();   				
 			while (rs.next()) {
-	            int idAvion = rs.getInt("idPersona");
+	            int idPersona = rs.getInt("idPersona");
 	            String nombre = rs.getString("nombre");
 	            String apellidos = rs.getString("apellidos");
 	            int edad = rs.getInt("edad");

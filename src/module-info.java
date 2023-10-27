@@ -16,4 +16,7 @@ module Actividad_H {
 	opens model to javafx.graphics, javafx.fxml, javafx.base;
 	opens application to javafx.graphics, javafx.fxml, javafx.base;
 	opens controller to javafx.graphics, javafx.fxml, javafx.base;
+	opens dao to javafx.base,java.sql;
+	opens conexion to java.sql;
+	
 }
