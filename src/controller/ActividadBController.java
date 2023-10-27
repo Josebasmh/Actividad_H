@@ -40,12 +40,6 @@ public class ActividadBController implements Initializable{
 
     @FXML
     private Button btnModificar;
-    
-    @FXML
-    private Button btnExportar;
-
-    @FXML
-    private Button btnImportar;
 	
 	@FXML
     private TableView<Persona> tblTabla;
@@ -151,80 +145,6 @@ public class ActividadBController implements Initializable{
     			listaFiltrada.add(p);
     		}
     	}
-    }
-    
-    /*
-     * Método para exportar los datos de la tabla a un csv 
-     */
-    @FXML
-    void exportarDatos(ActionEvent event) {
-
-    	File f = new File("./Persona.csv");
-    	try {
-			FileWriter fw = new FileWriter(f);
-			Iterator<Persona> it = listaFiltrada.iterator();
-			
-			fw.write("Nombre,Apellidos,Edad\n");
-			// Si no se muestran datos en la tabla, no se podrá exportar
-			if (!it.hasNext()) {
-				fw.close();
-				throw new NullPointerException();
-			}
-			while(it.hasNext()) {
-				Persona p = it.next();
-				fw.write(p.toCSV()+"\n");
-			}
-			fw.close();
-			ventanaAlerta("I", "CSV creado correctamente");
-		} catch (IOException e) {
-			ventanaAlerta("E", "No se pudo crear el archivo csv");
-		} catch (NullPointerException e) {
-			ventanaAlerta("E", "No se pueden exportar datos sin ningún registro");
-		}
-    }
-    
-    /*
-     * Método para importar datos
-     */
-    @FXML
-    void importarDatos(ActionEvent event) {
-    	try {
-    		
-    		JFileChooser fichCSV = new JFileChooser();
-        	fichCSV.showOpenDialog(null);
-        	File fRutaFichero = fichCSV.getSelectedFile();
-        	String extension = fRutaFichero.toString().substring(((int)fRutaFichero.toString().length())-3, (int)fRutaFichero.toString().length());
-        	if (!extension.equals("csv")) {
-        		ventanaAlerta("E", "Seleccione un archivo con extensión .csv");
-        	}else {
-        		Scanner sc = new Scanner(fRutaFichero);
-        		String[] arrLinea = new String[3];
-        		// Leer la primera línea para quitar el encabezado
-        		sc.next();
-        		while (sc.hasNext()) {
-        			String sLinea=sc.next();
-        			arrLinea = sLinea.split(",");
-        			Persona p = new Persona(arrLinea[0],arrLinea[1],Integer.parseInt(arrLinea[2]));
-        			if (!comprobarPersona(p)){
-        				throw new IOException();
-        			}
-        			if (!listaPersonas.contains(p)) {
-        				listaPersonas.add(p);
-            			listaFiltrada.add(p);
-        			}
-        		}
-        		sc.close();
-        		ventanaAlerta("I", "CSV importado correctamente");
-        	}
-    		
-        // Omite NullPointerException para que al pulsar cancelar no de error.	
-    	}catch (NullPointerException e) {
-    		
-    	} catch (FileNotFoundException e) {
-    		ventanaAlerta("E", "No se encontró el archivo seleccionado");
-		}catch (Exception e) {
-			ventanaAlerta("E", "El archivo no tiene el formato de datos correcto: nombre,apellidos,edad");
-		}
     }
 		
 	/*
