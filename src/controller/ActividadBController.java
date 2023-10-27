@@ -1,16 +1,11 @@
 package controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
-import javax.swing.JFileChooser;
-
+import dao.PersonaDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,6 +52,7 @@ public class ActividadBController implements Initializable{
     private TextField txtFiltrar;
 	
 	// Variables de clase
+    PersonaDao pDao = new PersonaDao();
 	static ObservableList<Persona> listaPersonas;
 	static ObservableList<Persona> listaFiltrada;
 	static Persona p=new Persona("", "", 0);
@@ -66,8 +62,8 @@ public class ActividadBController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		listaPersonas = FXCollections.observableArrayList();
-		listaFiltrada = FXCollections.observableArrayList();
+		listaPersonas = pDao.cargarPersonas();
+		listaFiltrada = pDao.cargarPersonas();
 		tblNombre.setCellValueFactory(new PropertyValueFactory<Persona, String>("nombre"));
 		tblApellidos.setCellValueFactory(new PropertyValueFactory<Persona, String>("apellidos"));
 		tblEdad.setCellValueFactory(new PropertyValueFactory<Persona, Integer>("edad"));		

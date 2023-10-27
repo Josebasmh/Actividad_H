@@ -11,6 +11,7 @@ module Actividad_H {
 	requires javafx.media;
 	requires javafx.graphics;
 	requires javafx.base;
+	requires java.sql;
 	
 	opens model to javafx.graphics, javafx.fxml, javafx.base;
 	opens application to javafx.graphics, javafx.fxml, javafx.base;
