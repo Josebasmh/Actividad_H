@@ -18,7 +18,7 @@ public class PersonaDao {
     	ObservableList<Persona> persona = FXCollections.observableArrayList();
         try {
             conexion = new ConexionMysql();        	
-        	String consulta = "select * from personas;";
+        	String consulta = "select * from Persona;";
         	PreparedStatement pstmt = conexion.getConexion().prepareStatement(consulta);      
         	ResultSet rs = pstmt.executeQuery();   				
 			while (rs.next()) {
@@ -27,8 +27,7 @@ public class PersonaDao {
 	            String apellidos = rs.getString("apellidos");
 	            int edad = rs.getInt("edad");
 	            Persona p = new Persona(nombre,apellidos,edad);
-                
-                
+	            persona.add(p);
             }		              
 			 rs.close();
 	    } catch (SQLException e) {	    	
@@ -36,5 +35,17 @@ public class PersonaDao {
 	    }    
         return persona;    
     }
-
+    
+    public boolean eliminarPersona(Persona p) {
+    	String consulta = "DELETE FROM Persona WHERE nombre = '" + p.getNombre() + "';";
+    	PreparedStatement pstmt;
+		try {
+			pstmt = conexion.getConexion().prepareStatement(consulta);
+			//ResultSet rs = pstmt.executeQuery();
+			pstmt.executeQuery();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}      
+    }
 }

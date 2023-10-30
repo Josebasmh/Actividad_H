@@ -96,6 +96,7 @@ public class ActividadBController implements Initializable{
 			Integer nEdadEliminado = tblTabla.getSelectionModel().getSelectedItem().getEdad();
 			listaPersonas.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
 			listaFiltrada.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
+			pDao.eliminarPersona(p);
 			ventanaAlerta("I","Persona eliminada correctamente");
 		}catch (NullPointerException e) {
 			ventanaAlerta("E", "Seleccione un registro de la tabla. Si no lo hay, añada uno.");

@@ -9,13 +9,14 @@ public class Persona {
 	// Variables de clase
 	private  String nombre;
 	private  String apellidos;
-	private  int edad;
+	private  int edad,id;
 	
 	// Constructor
 	public Persona(String nom,String ape,int edad) {
 		this.nombre = (nom);
 		this.apellidos = (ape);
 		this.edad =(edad);
+		
 	}
 
 	
