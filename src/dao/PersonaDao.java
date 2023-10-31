@@ -39,8 +39,9 @@ public class PersonaDao {
 	    }    
         return persona;    
     }
+    
     /**
-     * 
+     * Metodo para insertar persona y devuelve el id.
      * @param p
      * @return int
      */
@@ -57,10 +58,7 @@ public class PersonaDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
-			
-		}
-    	
-    	
+		}	
     }
     
     /**
@@ -79,5 +77,20 @@ public class PersonaDao {
 		} catch (SQLException e) {
 			return false;
 		}      
+    }
+    
+    public boolean modificarPersona(Persona pAnt,Persona p) {
+    	try {
+			conexion = new ConexionMysql();
+			String consulta = "UPDATE Persona SET nombre = '"+ p.getNombre() +"', apellidos = '" + p.getApellidos() + "', edad = " + p.getEdad() + " WHERE idPersona = " + pAnt.getId() + ";";
+			PreparedStatement ps = conexion.getConexion().prepareStatement(consulta);
+	    	ps.executeUpdate();
+			conexion.CloseConexion();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
     }
 }

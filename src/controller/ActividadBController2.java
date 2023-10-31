@@ -124,6 +124,7 @@ public class ActividadBController2 implements Initializable{
 	    		Persona pAux = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
 	    		if (!ActividadBController.listaPersonas.contains(pAux)) {
 	        		// Modificar persona
+	    			System.out.println(ActividadBController.pDao.modificarPersona(ActividadBController.p,pAux));
 	    			ActividadBController.listaPersonas.remove(ActividadBController.p);
 	    			ActividadBController.listaFiltrada.remove(ActividadBController.p);
 	    			ActividadBController.listaPersonas.add(pAux);
