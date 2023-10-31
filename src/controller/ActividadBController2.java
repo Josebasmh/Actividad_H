@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import dao.PersonaDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,8 +93,10 @@ public class ActividadBController2 implements Initializable{
 				Persona p = new Persona(nombre, apellidos, edad);
 				// Insertar persona, controlando que no exista
 				if (ActividadBController.listaPersonas.contains(p)== false) {
+					p.setId(ActividadBController.pDao.insertarPersona(p));
 					ActividadBController.listaPersonas.add(p);
 					ActividadBController.listaFiltrada.add(p);
+					
 					ActividadBController.ventanaAlerta("I", "Persona añadida correctamente");
 					eliminarValores();
 				}else{
@@ -110,16 +114,16 @@ public class ActividadBController2 implements Initializable{
 	    	try {
 	    		// Controlar que los parametros se insertan correctamente
 	    		camposNulos = comprobarCampos();
-	    		System.out.println(camposNulos);
 				if (!camposNulos.equals("")) {
 					throw new NullPointerException();
 					}
 				if (Integer.parseInt(txtEdad.getText().toString()) < 1) {throw new NumberFormatException();}	    		
 
 				// Crear persona para comprobar que no existe
-	    		Persona pAux = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
+	    		Persona pAux = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()), ActividadBController.p.getId());
 	    		if (!ActividadBController.listaPersonas.contains(pAux)) {
 	        		// Modificar persona
+	    			ActividadBController.pDao.modificarPersona(ActividadBController.p,pAux);
 	    			ActividadBController.listaPersonas.remove(ActividadBController.p);
 	    			ActividadBController.listaFiltrada.remove(ActividadBController.p);
 	    			ActividadBController.listaPersonas.add(pAux);

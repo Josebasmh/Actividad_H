@@ -1,16 +1,11 @@
 package controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
-import javax.swing.JFileChooser;
-
+import dao.PersonaDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,6 +52,7 @@ public class ActividadBController implements Initializable{
     private TextField txtFiltrar;
 	
 	// Variables de clase
+    public static PersonaDao pDao = new PersonaDao();
 	static ObservableList<Persona> listaPersonas;
 	static ObservableList<Persona> listaFiltrada;
 	static Persona p=new Persona("", "", 0);
@@ -66,8 +62,8 @@ public class ActividadBController implements Initializable{
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		listaPersonas = FXCollections.observableArrayList();
-		listaFiltrada = FXCollections.observableArrayList();
+		listaPersonas = pDao.cargarPersonas();
+		listaFiltrada = pDao.cargarPersonas();
 		tblNombre.setCellValueFactory(new PropertyValueFactory<Persona, String>("nombre"));
 		tblApellidos.setCellValueFactory(new PropertyValueFactory<Persona, String>("apellidos"));
 		tblEdad.setCellValueFactory(new PropertyValueFactory<Persona, Integer>("edad"));		
@@ -95,11 +91,10 @@ public class ActividadBController implements Initializable{
 	@FXML
 	void eliminarPersona(ActionEvent event) {
 		try {
-			String sNombreEliminado = tblTabla.getSelectionModel().getSelectedItem().getNombre();
-			String sApellidosEliminado = tblTabla.getSelectionModel().getSelectedItem().getApellidos();
-			Integer nEdadEliminado = tblTabla.getSelectionModel().getSelectedItem().getEdad();
-			listaPersonas.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
-			listaFiltrada.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
+			Persona p = tblTabla.getSelectionModel().getSelectedItem();
+			listaPersonas.remove(p);
+			listaFiltrada.remove(p);
+			pDao.eliminarPersona(p);
 			ventanaAlerta("I","Persona eliminada correctamente");
 		}catch (NullPointerException e) {
 			ventanaAlerta("E", "Seleccione un registro de la tabla. Si no lo hay, añada uno.");
@@ -118,6 +113,7 @@ public class ActividadBController implements Initializable{
     		p.setNombre(tblTabla.getSelectionModel().getSelectedItem().getNombre());
         	p.setApellidos(tblTabla.getSelectionModel().getSelectedItem().getApellidos());
         	p.setEdad(tblTabla.getSelectionModel().getSelectedItem().getEdad());
+        	p.setId(tblTabla.getSelectionModel().getSelectedItem().getId());
     		crearVentanaAux();
     	}catch(NullPointerException e) {
     		ventanaAlerta("E", "Seleccione un registro de la tabla. Si no lo hay, añada uno.");
