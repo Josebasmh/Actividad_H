@@ -114,17 +114,16 @@ public class ActividadBController2 implements Initializable{
 	    	try {
 	    		// Controlar que los parametros se insertan correctamente
 	    		camposNulos = comprobarCampos();
-	    		System.out.println(camposNulos);
 				if (!camposNulos.equals("")) {
 					throw new NullPointerException();
 					}
 				if (Integer.parseInt(txtEdad.getText().toString()) < 1) {throw new NumberFormatException();}	    		
 
 				// Crear persona para comprobar que no existe
-	    		Persona pAux = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
+	    		Persona pAux = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()), ActividadBController.p.getId());
 	    		if (!ActividadBController.listaPersonas.contains(pAux)) {
 	        		// Modificar persona
-	    			System.out.println(ActividadBController.pDao.modificarPersona(ActividadBController.p,pAux));
+	    			ActividadBController.pDao.modificarPersona(ActividadBController.p,pAux);
 	    			ActividadBController.listaPersonas.remove(ActividadBController.p);
 	    			ActividadBController.listaFiltrada.remove(ActividadBController.p);
 	    			ActividadBController.listaPersonas.add(pAux);

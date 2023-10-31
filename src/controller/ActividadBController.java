@@ -113,6 +113,7 @@ public class ActividadBController implements Initializable{
     		p.setNombre(tblTabla.getSelectionModel().getSelectedItem().getNombre());
         	p.setApellidos(tblTabla.getSelectionModel().getSelectedItem().getApellidos());
         	p.setEdad(tblTabla.getSelectionModel().getSelectedItem().getEdad());
+        	p.setId(tblTabla.getSelectionModel().getSelectedItem().getId());
     		crearVentanaAux();
     	}catch(NullPointerException e) {
     		ventanaAlerta("E", "Seleccione un registro de la tabla. Si no lo hay, añada uno.");
