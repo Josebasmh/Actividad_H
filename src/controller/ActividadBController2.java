@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import dao.PersonaDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,8 +93,10 @@ public class ActividadBController2 implements Initializable{
 				Persona p = new Persona(nombre, apellidos, edad);
 				// Insertar persona, controlando que no exista
 				if (ActividadBController.listaPersonas.contains(p)== false) {
+					p.setId(ActividadBController.pDao.insertarPersona(p));
 					ActividadBController.listaPersonas.add(p);
 					ActividadBController.listaFiltrada.add(p);
+					
 					ActividadBController.ventanaAlerta("I", "Persona añadida correctamente");
 					eliminarValores();
 				}else{

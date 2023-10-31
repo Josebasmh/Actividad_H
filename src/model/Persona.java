@@ -16,10 +16,15 @@ public class Persona {
 		this.nombre = (nom);
 		this.apellidos = (ape);
 		this.edad =(edad);
-		
+		this.id=-1;
+	}
+	public Persona(String nom,String ape,int edad, int id) {
+		this.nombre = (nom);
+		this.apellidos = (ape);
+		this.edad =(edad);
+		this.id=id;
 	}
 
-	
 	// Métodos getter y setter
 	public String getNombre() {
 		return nombre;
@@ -44,10 +49,18 @@ public class Persona {
 	public void setEdad(int nEdad) {
 		this.edad = nEdad;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String toCSV() {
 		return this.nombre + "," + this.apellidos + "," + this.edad;
 	}
-
+	
 
 	/*
 	 * Metodo HashCode y equals para saber cuando una persona es igual a otra.

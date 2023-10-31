@@ -12,8 +12,8 @@ public class ConexionMysql {
 	public ConexionMysql() throws SQLException {
 		String host = "localhost";
 	    String baseDatos = "deinsa";
-	    String usuario = "admin@localhost";
-	    String password = "password";
+	    String usuario = "user";
+	    String password = "user";
 	    String cadenaConexion = "jdbc:mysql://" + host + "/" + baseDatos+ "?serverTimezone=" + TimeZone.getDefault().getID();
 	    conn = DriverManager.getConnection(cadenaConexion, usuario, password);
 	    conn.setAutoCommit(true);

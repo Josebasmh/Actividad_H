@@ -52,7 +52,7 @@ public class ActividadBController implements Initializable{
     private TextField txtFiltrar;
 	
 	// Variables de clase
-    PersonaDao pDao = new PersonaDao();
+    public static PersonaDao pDao = new PersonaDao();
 	static ObservableList<Persona> listaPersonas;
 	static ObservableList<Persona> listaFiltrada;
 	static Persona p=new Persona("", "", 0);
@@ -91,11 +91,9 @@ public class ActividadBController implements Initializable{
 	@FXML
 	void eliminarPersona(ActionEvent event) {
 		try {
-			String sNombreEliminado = tblTabla.getSelectionModel().getSelectedItem().getNombre();
-			String sApellidosEliminado = tblTabla.getSelectionModel().getSelectedItem().getApellidos();
-			Integer nEdadEliminado = tblTabla.getSelectionModel().getSelectedItem().getEdad();
-			listaPersonas.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
-			listaFiltrada.remove(new Persona(sNombreEliminado, sApellidosEliminado, nEdadEliminado));
+			Persona p = tblTabla.getSelectionModel().getSelectedItem();
+			listaPersonas.remove(p);
+			listaFiltrada.remove(p);
 			pDao.eliminarPersona(p);
 			ventanaAlerta("I","Persona eliminada correctamente");
 		}catch (NullPointerException e) {
